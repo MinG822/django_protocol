@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>수정하기</h1>
+<form action="{% url 'blogv1:update' article.pk %}" method="POST">
+  {% csrf_token %}
+  <p>제목:<input type="text" name="title" value="{{ article.title }}"></p>
+  <p>내용:<textarea name="content" cols="30" rows="10">{{ article.content }}</textarea></p>
+  <input type="submit">
+</form>
+
+{% endblock %}

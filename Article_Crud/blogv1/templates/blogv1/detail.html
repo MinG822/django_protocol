@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>상세보기</h1>
+<p>제목 : {{ article.title }}</p>
+<p>내용 : {{ article.content }}</p>
+<p>작성날짜 : {{ article.created_at}} | 수정날짜 : {{ article.updated_at }} </p>
+
+<p><a href="{% url 'blogv1:update' article.pk %}">[수정하기]</a> | <a href="{% url 'blogv1:delete' article.pk %}">[삭제하기]</a></p>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>글 모아보기</h1>
+
+<a href="{% url 'board:create' %}">새 글 작성하기</a>
+
+<ul>
+{% for article in articles %}
+<li><a href="{% url 'board:detail' article.pk %}">{{ article.title }}</a></li>
+{% endfor %}
+</ul>
+
+
+{% endblock %}

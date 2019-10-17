@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block body %}
+
+<h1>게시글 상세보기</h1>
+
+<p>제목 : {{ article }}</p>
+<p>내용 : {{ article.content }}</p>
+{% if article.image %}
+<p><img src="{{ article.image.url }}" alt="{{ article.image }}"></p>
+{% else %}
+<p>업로드된 그림파일이 없습니다.</p>
+{% endif %}
+<p>작성 : {{ article.created_at }} | 수정 : {{ article.updated_at }}</p>
+
+<p><a href="{% url 'blog:update' article.pk %}">수정하기</a> | 
+  <form action="{% url 'blog:delete' article.pk %}" method="POST">{% csrf_token %}<input type="submit" value="삭제하기"></form>
+</p>
+
+<p><a href="{% url 'blog:index' %}">게시글 모아보기</a></p>
+
+<hr>
+
+<form action="{% url 'blog:comment_create' article.pk %}" method="POST">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <input type="submit">
+</form>
+
+<p>{{comments|length}}개의 댓글이 달려있습니다.</p>
+
+<ul>
+{% for comment in comments %}
+  <li>
+    {% if comment.pk == comment_pk %}
+    <form action="{% url 'blog:comment_update' article.pk comment.pk %}" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form updateform %}
+      <input type="submit">
+    </form>
+    {% else %}
+    <p>{{ comment }}</p></li>
+    <p>
+      <form action="{% url 'blog:comment_delete' comment.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="삭제하기">
+      </form> 
+      <a href="{% url 'blog:comment_update' article.pk comment.pk %}">[수정하기]</a>
+    </p>
+    {% endif %}
+    {% empty %}
+    <p>댓글을 달아주세요.</p>
+  </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

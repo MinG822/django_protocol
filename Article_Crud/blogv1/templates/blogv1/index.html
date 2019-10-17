@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>Blog Articles</h1>
+
+<ol>
+{% for article in articles %}
+  <li>
+    <a href="{% url 'blogv1:detail' article.pk %}">{{article.title}}</a>
+  </li>
+{% endfor %}
+</ol>
+
+<a href="{% url 'blogv1:create' %}">새글쓰기</a>
+
+{% endblock %}

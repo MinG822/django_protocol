@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<p>제목 : {{ article }}</p>
+<p>내용 : {{ article.content }}</p>
+
+<p><a href="{% url 'blog:index' %}">모든 게시글 보기</a></p>
+<p><a href="{% url 'blog:update' article.pk %}">수정하기</a> | 
+  <form action="{% url 'blog:delete' article.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="삭제하기">
+  </form>
+</p>
+
+{% endblock %}

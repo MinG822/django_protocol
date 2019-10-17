@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block body %}
+
+<h1>새 글 쓰기</h1>
+<form action="{% url 'blog:create' %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <input type="submit">
+</form>
+
+{% endblock %}

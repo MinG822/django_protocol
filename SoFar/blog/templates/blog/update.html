@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+
+<h1>게시글 수정하기</h1>
+
+<form action="{% url 'blog:update' article.pk %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <input type="submit" value="수정하기">
+</form>
+
+{% endblock %}

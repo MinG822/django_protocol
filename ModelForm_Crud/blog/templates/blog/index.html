@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>게시글 모아보기</h1>
+
+<ul>
+  {% for article in articles %}
+  <li><a href="{{ article.get_absolute_url }}">{{ article }}</a></li>
+  {% endfor %}
+</ul>
+
+<p><a href="{% url 'blog:create' %}">새 글쓰기</a></p>
+
+{% endblock %}

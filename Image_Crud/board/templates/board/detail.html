@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>게시글 상세보기</h1>
+
+<p>제목 : {{ article.title }}</p>
+<p>내용 : {{ article.content }}</p>
+{% if article.Image %}
+<p><img src="{{ article.Image.url }}" alt="{{ article.Image }}"></p>
+{% endif %}
+<p>작성: {{ article.created_at }} | 수정 : {{ article.updated_at }}</p>
+
+<p><a href="{% url 'board:delete' article.pk %}">[삭제하기]</a> | <a href="{% url 'board:update' article.pk %}">[수정하기]</a></p>
+
+<p><a href="{% url 'board:index' %}">모든 게시글 보기</a></p>
+
+{% endblock %}

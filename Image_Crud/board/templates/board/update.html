@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>게시글 수정하기</h1>
+
+<form action="{% url 'board:update' article.pk %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p>제목 : <input type="text" name="title" value="{{ article.title }}"></p>
+  <p>내용 : <textarea name="content" cols="30" rows="10">{{ article.content }}</textarea></p>
+  <p><input type="file" name="image" accept="image/*"></p>
+  <p><input type="submit"></p>
+</form>
+
+{% endblock %}
