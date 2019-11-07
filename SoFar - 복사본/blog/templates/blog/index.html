@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+<p><a href="{% url 'blog:create' %}">새 글쓰기</a></p>
+{% endif %}
+
+<h1>게시글 모아보기</h1>
+
+<p>{{ articles|length }}개의 게시물이 있습니다.</p>
+<ul>
+  {% for article in articles %}
+  <li><a href="{{ article.get_absolute_url }}">{{ article }}</a></li>
+  {% empty %}
+  <p>새 게시물을 작성해주세요.</p>
+  {% endfor %}
+</ul>
+
+{% endblock %}

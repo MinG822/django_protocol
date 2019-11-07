@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>{{ person }}</h1>
+
+{% with followers=person.followers.all followings=person.followings.all %}
+  {% if user != person %}
+    {% if user in followers %}
+      <a href="{% url 'accounts:follow' person.pk %}">언팔로우</a>
+    {% else %}
+      <a href="{% url 'accounts:follow' person.pk %}">팔로우</a>
+    {% endif %}
+  {% endif %}
+  <p>팔로워수 : {{ followers|length }}</p>
+  <p>팔로워들 : 
+    {% for followers in followers %}
+      {{ follower }}
+    {% endfor %}
+  </p>
+  <p>팔로잉수 : {{ followings|length }}</p>
+  <p>팔로잉하고 있는 사람들:
+    {% for followings in followings %}
+      {{ followings }}
+    {% endfor %}
+  </p>
+  {% endwith %}
+<hr>
+
+<h2>{{ person }}가 쓴 글</h2>
+{% with blogs=person.blog_set.all %}
+  {% for blog in blogs %}
+  <p>
+    제목 : {{ blog.title }}
+    댓글 : {{ blog.comment_set.count }}
+  </p>
+  {% endfor %}
+{% endwith %}
+{% endblock %}

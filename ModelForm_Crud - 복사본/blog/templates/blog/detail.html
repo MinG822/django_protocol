@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<p>제목 : {{ article }}</p>
+<p>내용 : {{ article.content }}</p>
+
+<p><a href="{% url 'blog:index' %}">모든 게시글 보기</a></p>
+
+{% if article.user == request.user %}
+<p><a href="{% url 'blog:update' article.pk %}">수정하기</a> | 
+  <form action="{% url 'blog:delete' article.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="삭제하기">
+  </form>
+</p>
+{% endif %}
+
+<p>좋아요 : {{ article.like_users.count }}</p>
+{% with likers=article.like_users.all %}
+<p>좋아요 목록:
+  {% for liker in likers.all %}
+    {{ liker }}
+  {% endfor %}
+</p>
+  {% if user in likers %}
+  <a href="{% url 'articles:like' article.pk %}">좋아요취소</a>
+  {% else %}
+  <a href="{% url 'articles:like' article.pk %}">좋아요</a>
+  {% endif %}
+  {% endwith %}
+{% endblock %}
